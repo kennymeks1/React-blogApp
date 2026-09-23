@@ -1,4 +1,4 @@
-export default function BlogCard({ blog, deleteBlog }) {
+export default function BlogCard({ blog, deleteBlog, editBlog }) {
   return (
     <article className="mx-auto max-w-sm">
       
@@ -38,6 +38,8 @@ export default function BlogCard({ blog, deleteBlog }) {
         >
           Delete
         </button>
+
+        <button onClick={()=>editBlog(blog)} className="mt-4 w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700">Edit</button>
       </div>
     </article>
   );

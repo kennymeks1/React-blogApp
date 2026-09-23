@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BlogForm from "./components/BlogForm";
+import BlogForm from "./components/Blogform";
 import BlogList from "./components/BlogList";
 
 export default function App() {
@@ -9,11 +9,12 @@ export default function App() {
     return savedBlogs ? JSON.parse(savedBlogs) : [];
   });
 
+  const [editingBlog, setEditingBlog] = useState(null);
+
   useEffect(() => {
     localStorage.setItem("blogs", JSON.stringify(blogs));
 
     console.log("effect started");
-    
   }, [blogs]);
 
   function addBlog(title, summary, rating, imageURL) {
@@ -36,15 +37,37 @@ export default function App() {
     });
   }
 
+  function editBlog(blog) {
+    setEditingBlog(blog);
+  }
+
+  function updateBlog(id, title, summary, rating, imageURL) {
+    setBlogs(
+      blogs.map((blog) => {
+        if (blog.id === id) {
+          return {
+            ...blog,
+            title,
+            summary,
+            rating,
+            imageURL,
+          };
+        }
+
+        return blog;
+      }),
+    );
+
+    setEditingBlog();
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 py-10">
       <div className="mb-10">
-        <BlogForm addBlog={addBlog} />
+        <BlogForm addBlog={addBlog} editingBlog={editingBlog} updateBlog={updateBlog}/>
       </div>
 
-      <BlogList blogs={blogs} deleteBlog={deleteBlog} />
-
-    
+      <BlogList blogs={blogs} deleteBlog={deleteBlog} editBlog={editBlog} />
     </div>
   );
 }
