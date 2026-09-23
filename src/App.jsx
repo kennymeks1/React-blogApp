@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BlogForm from "./components/Blogform";
+import BlogForm from "./components/BlogForm";
 import BlogList from "./components/BlogList";
 
 export default function App() {
